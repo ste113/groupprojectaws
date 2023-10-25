@@ -1,0 +1,42 @@
+{
+  "name": "group2project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:css": "postcss public/styles/tailwind.css -o public/styles/styles.css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^10.4.16",
+    "bcrypt": "^5.1.1",
+    "connect-flash": "^0.1.1",
+    "connect-pg-simple": "^9.0.0",
+    "dom-parser": "^0.1.6",
+    "exphbs": "^1.2.0",
+    "express": "^4.18.2",
+    "express-flash": "^0.0.2",
+    "express-handlebars": "^7.1.2",
+    "express-hbs": "^2.4.2",
+    "express-session": "^1.17.3",
+    "hbs": "^4.2.0",
+    "knex": "^3.0.1",
+    "method-override": "^3.0.0",
+    "nanoid": "^5.0.2",
+    "nanostores": "^0.9.4",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0",
+    "pg": "^8.11.3",
+    "picocolors": "^1.0.0",
+    "postcss-cli": "^10.1.0",
+    "pug": "^3.0.2",
+    "source-map-js": "^1.0.2",
+    "xmldom": "^0.6.0"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3"
+  }
+}

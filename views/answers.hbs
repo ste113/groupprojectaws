@@ -1,0 +1,66 @@
+<script src="https://cdn.tailwindcss.com"></script>
+
+<body class="bg-black">
+  <div class="grid w-screen place-items-center text-black min-h-screen">
+
+    <form
+      action="{{action}}"
+      method="post"
+      class="max-w-[750px] mt-[20vh] pt-20 bg-white text-black rounded-lg"
+    >
+      <div class="flex justify-between px-24">
+        <h2 class="text-4xl">Results</h2>
+        <p class="">Total points: /5</p>
+      </div>
+      <div>{{statefunction}}</div>
+      {{#compare correctanswers useranswers}}
+        <div
+          class="min-w-full min-h-[400px] px-32 flex flex-col justify-center align-middle gap-y-20 p-5"
+          id="slide{{@index}}"
+        >
+
+          <h2 class="text-3xl font-bold text-center"><p
+            >{{this.question}}</p></h2>
+          <div class="grid min-w-full">
+            <div class="space-x-2 text-xl"><input
+                class="scale-125"
+                name="{{@index}}"
+                value={{this.choice_1}}
+                type="radio"
+              /><label class="">{{this.choice_1}}</label></div>
+            <div class="space-x-2 text-xl"><input
+                class="scale-125"
+                name="{{@index}}"
+                value={{this.choice_2}}
+                type="radio"
+              /><label>{{this.choice_2}}</label></div>
+            {{#notequal this.choice_3 null}}
+              <div class="space-x-2 text-xl"><input
+                  class="scale-125"
+                  name="{{@index}}"
+                  value={{this.choice_3}}
+                  type="radio"
+                /><label>{{this.choice_3}}</label></div>
+            {{/notequal}}
+            {{#notequal this.choice_4 null}}
+              <div class="space-x-2 text-xl"><input
+                  class="scale-125"
+                  name="{{@index}}"
+                  value={{this.choice_4}}
+                  type="radio"
+                /><label>{{this.choice_4}}</label></div>
+            {{/notequal}}
+          </div>
+          {{#notequal @index 4}}
+            <div class="flex justify-end">
+
+            </div>
+          {{/notequal}}
+          
+        </div>
+      {{/compare}}
+      
+    </form>
+
+  </div>
+</body>
