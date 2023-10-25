@@ -57,7 +57,6 @@ app.post("/quizzes/:id/results", async (req, res)=>{
 
   let correctanswers = await knex(`${req.params.id}`).select("*");
   let useranswers = req.body;
-
   let results = correctanswers;
   console.log(req.body)
   res.render('answers', {

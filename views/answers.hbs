@@ -13,7 +13,7 @@
         <p class="">Total points: /5</p>
       </div>
       <div>{{statefunction}}</div>
-      {{#compare correctanswers useranswers}}
+      {{#each results}}
         <div
           class="min-w-full min-h-[400px] px-32 flex flex-col justify-center align-middle gap-y-20 p-5"
           id="slide{{@index}}"
@@ -58,7 +58,7 @@
           {{/notequal}}
           
         </div>
-      {{/compare}}
+      {{/each}}
       
     </form>
 

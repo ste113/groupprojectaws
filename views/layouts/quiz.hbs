@@ -22,24 +22,33 @@
           >
             <h2 class="text-3xl font-bold text-center"><p
               >{{this.question}}</p></h2>
-            <div class="grid grid-cols-2 min-w-full">
-              <div><input name="{{@index}}" value={{this.choice_1}} type="radio" /><label
-                >A. {{this.choice_1}}</label></div>
-              <div><input name="{{@index}}" value={{this.choice_2}} type="radio" /><label
-                >B. {{this.choice_2}}</label></div>
+            <div class="grid  min-w-full">
+              <div class="scale-125 space-x-2"><input
+                  name="{{@index}}"
+                  value={{this.choice_1}}
+                  type="radio"
+                /><label class="text-xl">{{this.choice_1}}</label></div>
+              <div class="space-x-2 scale-125"><input
+                  
+                  name="{{@index}}"
+                  value={{this.choice_2}}
+                  type="radio"
+                /><label class="text-xl">{{this.choice_2}}</label></div>
               {{#notequal this.choice_3 null}}
-                <div><input
+                <div class="space-x-2 scale-125"><input
+                    class=""
                     name="{{@index}}"
                     value={{this.choice_3}}
                     type="radio"
-                  /><label>C. {{this.choice_3}}</label></div>
+                  /><label class="text-xl">{{this.choice_3}}</label></div>
               {{/notequal}}
               {{#notequal this.choice_4 null}}
-                <div><input
+                <div class="space-x-2 scale-125"><input
+                    class=""
                     name="{{@index}}"
                     value={{this.choice_4}}
                     type="radio"
-                  /><label>D. {{this.choice_4}}</label></div>
+                  /><label class="text-xl">{{this.choice_4}}</label></div>
               {{/notequal}}
             </div>
             {{#notequal @index 4}}
