@@ -5,9 +5,9 @@ var bcrypt = require("bcrypt");
 const knex = require("knex")({
   client: "postgresql",
   connection: {
-    database: "quiz",
-    user: "postgres",
-    password: "postgres",
+    database: process.env.DATABASE_NAME,
+    user: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
   },
 });
 
@@ -21,9 +21,13 @@ router.post("/register", async (req, res) => {
     .select("*")
     .where("username", "=", req.body.username);
   try {
-    if (typeof user[0] == 'undefined') {
-      await knex('users').insert({role: 'student', username: req.body.username, password: hashedPassword})
-      res.redirect('/login');
+    if (typeof user[0] == "undefined") {
+      await knex("users").insert({
+        role: "student",
+        username: req.body.username,
+        password: hashedPassword,
+      });
+      res.redirect("/login");
     } else {
       res.render("register", {
         layout: "main",

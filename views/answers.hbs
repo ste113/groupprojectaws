@@ -10,10 +10,16 @@
     >
       <div class="flex justify-between px-24">
         <h2 class="text-4xl">Results</h2>
-        <p class="">Total points: /5</p>
+        <p class="">Total points: {{score}}/5</p>
       </div>
-      <div>{{statefunction}}</div>
-      {{#compare correctanswers useranswers}}
+      <div class="pt-5 px-24">
+        <p>Your answer (wrong) </p><div class="bg-red-400 min-w-[40px] min-h-[30px]"></div>
+       <p>Your answer (correct) </p><div class="bg-gray-400  min-w-[40px] min-h-[30px]"></div>
+        <p>Correct Answer </p><div class="bg-green-400  min-w-[40px] min-h-[30px]"></div>
+      </div>
+     
+      
+      {{#each results}}
         <div
           class="min-w-full min-h-[400px] px-32 flex flex-col justify-center align-middle gap-y-20 p-5"
           id="slide{{@index}}"
@@ -21,34 +27,39 @@
 
           <h2 class="text-3xl font-bold text-center"><p
             >{{this.question}}</p></h2>
-          <div class="grid min-w-full">
-            <div class="space-x-2 text-xl"><input
-                class="scale-125"
+          <div class="grid min-w-full gap-y-2">
+            <div class="{{button1 ../correctanswers ../useranswers @index}} space-x-2 text-xl pl-2 rounded-md"><input
+                class="{{button1 ../correctanswers ../useranswers @index}} scale-125 "
                 name="{{@index}}"
-                value={{this.choice_1}}
+                value=`{{this.choice_1}}`
                 type="radio"
-              /><label class="">{{this.choice_1}}</label></div>
-            <div class="space-x-2 text-xl"><input
-                class="scale-125"
+                {{checked_1 ../correctanswers ../useranswers @index}}
+              /><label >{{this.choice_1}}</label></div>
+              
+            <div class="{{button2 ../correctanswers ../useranswers @index}} space-x-2 text-xl pl-2 rounded-md"><input
+                class="{{button2 ../correctanswers ../useranswers @index}} scale-125"
                 name="{{@index}}"
-                value={{this.choice_2}}
+                value=`{{this.choice_2}}`
                 type="radio"
-              /><label>{{this.choice_2}}</label></div>
+                {{checked_2 ../correctanswers ../useranswers @index}}
+              /><label class=''>{{this.choice_2}}</label></div>
             {{#notequal this.choice_3 null}}
-              <div class="space-x-2 text-xl"><input
-                  class="scale-125"
+              <div class="{{button3 ../correctanswers ../useranswers @index}} space-x-2 text-xl pl-2 rounded-md"><input
+                  class="{{button3 ../correctanswers ../useranswers @index}} scale-125 "
                   name="{{@index}}"
-                  value={{this.choice_3}}
+                  value=`{{this.choice_3}}`
                   type="radio"
-                /><label>{{this.choice_3}}</label></div>
+                  {{checked_3 ../correctanswers ../useranswers @index}}
+                /><label class=''>{{this.choice_3}}</label></div>
             {{/notequal}}
             {{#notequal this.choice_4 null}}
-              <div class="space-x-2 text-xl"><input
-                  class="scale-125"
+              <div class="{{button4 ../correctanswers ../useranswers @index}} space-x-2 text-xl pl-2 rounded-md"><input
+                  class="{{button4 ../correctanswers ../useranswers @index}} scale-125 "
                   name="{{@index}}"
-                  value={{this.choice_4}}
+                  value=`{{this.choice_4}}`
+                  {{checked_4 ../correctanswers ../useranswers @index}}
                   type="radio"
-                /><label>{{this.choice_4}}</label></div>
+                /><label class="">{{this.choice_4}}</label></div>
             {{/notequal}}
           </div>
           {{#notequal @index 4}}
@@ -58,7 +69,7 @@
           {{/notequal}}
           
         </div>
-      {{/compare}}
+      {{/each}}
       
     </form>
 
