@@ -2,13 +2,16 @@ var express = require("express");
 var router = express.Router();
 
 const knex = require("knex")({
-    client: "postgresql",
-    connection: {
-      database: process.env.DATABASE_NAME,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-    },
-  });
+  client: "postgresql",
+  connection: {
+        host: 'database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com',
+          port: '5432',
+    user: 'postgres',
+    password: 'ocXthUO55TH5lMRfVcjr',
+	  ssh: { rejectUnauthorized: false }
+  },
+});
+
 
 
 router.get("/quizzes/:id", async (req, res) => {
