@@ -1,0 +1,36 @@
+<div class="flex space-x-2 justify-between px-2 text-xl"><h1>Hi
+    {{name}}!</h1><form action="/logout?_method=DELETE" method="post"><button
+      type="submit"
+    >Logout</button></form></div>
+
+<div class="grid place-content-center gap-y-5 min-h-[100vh] text-6xl font-bold">
+  <h2>Random Quiz!</h2>
+
+  <button
+    class="bg-white text-black py-5 px-10  rounded-lg max-w-fit justify-self-center"
+  ><a href="/quizzes/{{quizid}}#slide0">Start</a></button>
+</div>
+<h2 class="text-center font-bold text-6xl">Dashboard</h2>
+<div class="grid grid-cols-3 gap-y-5 px-24 gap-x-5 pt-5">
+  {{#each appointments}}
+    <div
+      class="bg-white border rounded-lg place-items-center text-black min-w-[300px] min-h-[80px] grid"
+    > <p>Scheduled time: {{time}}</p> <p>Student assigned to: {{name}}</p></div>
+  {{/each}}
+</div>
+
+<h2 class="text-center font-bold text-6xl pt-48">Schedule a Quiz!</h2>
+<div class="gap-y-5 grid place-items-center gap-x-5 pt-5 text-lg ">
+  <form action="/" method="post" class="text-white grid ">
+    <label for="time">Schedule date and time:</label>
+    <input type="datetime-local" name="time" class="text-black" />
+    <label class="pt-2" for="name">Student Name:</label>
+    <input
+      type="text"
+      placeholder="Enter Name"
+      name="name"
+      class="text-black indent-1"
+    />
+    <button class="pt-2" type="submit">Submit</button>
+  </form>
+</div>

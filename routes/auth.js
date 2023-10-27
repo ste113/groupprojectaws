@@ -3,7 +3,10 @@ var router = express.Router();
 var passport = require("passport");
 var LocalStrategy = require("passport-local");
 var bcrypt = require("bcrypt");
-require('dotenv').config()
+require("dotenv").config();
+var session = require("express-session");
+var postgresstore = require("connect-pg-simple")(session);
+
 const knex = require("knex")({
   client: "postgresql",
   connection: {
@@ -13,6 +16,23 @@ const knex = require("knex")({
   },
 });
 
+const path = require("node:path");
+
+const sessionStore = new postgresstore({
+  conString: `postgresql://localhost/${process.env.DATABASE_NAME}?user=${process.env.DB_USERNAME}&password=${process.env.DB_PASSWORD}`,
+});
+
+router.use(express.static(path.join(__dirname, "public")));
+router.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    store: sessionStore,
+  }),
+);
+router.use(passport.authenticate("session"));
+
 passport.use(
   new LocalStrategy(async function verify(username, password, cb) {
     let selected = await knex("users")
@@ -20,16 +40,11 @@ passport.use(
       .where("username", "=", username);
     let row = selected[0];
 
-    if (!row) {
-      return cb(null, false, { message: "No user with that username!" });
-    }
-
+    
     try {
       if (await bcrypt.compare(password, row.password)) {
         return cb(null, row);
-      } else {
-        return cb(null, false, { message: "Passoword Incorrect!" });
-      }
+      } 
     } catch (e) {
       return cb(e);
     }
@@ -48,6 +63,10 @@ passport.deserializeUser(function (user, cb) {
   });
 });
 
+
+
+
+
 router.post("/logout", function (req, res, next) {
   req.logout(function (err) {
     if (err) {
@@ -61,22 +80,73 @@ router.get("/login", (req, res) => {
   res.render("login", { layout: "main" });
 });
 
-router.get("/", async(req, res) => {
-  
-  let array = await knex("questionsets").select('*');
+router.get("/", async (req, res) => {
+  let array = await knex("questionsets").select("*");
   let quizid = array[Math.floor(Math.random() * array.length)].setname;
-  if (req.user !== undefined) {
-    res.render("loggedin", { layout: "main", name: req.user.username, quizid: quizid});
+  let appointmentrows = await knex("appointments").select("*");
+  if(req.user !== undefined){
+    let loggedinuser = await knex("users")
+    .select("*")
+    .where("username", "=", req.user.username);
+    if (loggedinuser[0].role === "admin") {
+    res.render("adminpanel", {
+      layout: "main",
+      name: req.user.username,
+      quizid: quizid,
+      appointments: appointmentrows
+    });
   } else {
+    res.render("loggedin", {
+      layout: "main",
+      name: req.user.username,
+      quizid: quizid,
+    });
+  } 
+  }
+  else {
     res.render("loggedout", { layout: "main" });
   }
-}); //
+  
+}); 
+
+router.post("/", async (req, res) => {
+  let array = await knex("questionsets").select("*");
+  let quizid = array[Math.floor(Math.random() * array.length)].setname;
+  await knex("appointments").insert({
+    time: req.body.time.toString().replace("T", " "),
+    name: req.body.name,
+  });
+  let appointmentrows = await knex("appointments").select("*");
+
+
+  if(req.user !== undefined){
+    let loggedinuser = await knex("users")
+    .select("*")
+    .where("username", "=", req.user.username);
+    if (loggedinuser[0].role === "admin") {
+    res.render("adminpanel", {
+      layout: "main",
+      name: req.user.username,
+      quizid: quizid,
+      appointments: appointmentrows
+    });
+  } else {
+    res.render("loggedin", {
+      layout: "main",
+      name: req.user.username,
+      quizid: quizid,
+    });
+  } 
+  }
+  else {
+    res.render("loggedout", { layout: "main" });
+  }
+});
 
 router.post(
   "/login/password",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureFlash: true,
     failureRedirect: "/login",
   }),
 );
