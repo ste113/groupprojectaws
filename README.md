@@ -11,9 +11,10 @@ This is a simple quiz application built with Express.js and PostgreSQL. It allow
 
 ## Features
 
-- User authentication 
+- User authentication
 - Take quizzes and see your scores
 - View quiz results and correct answers
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
@@ -28,6 +29,7 @@ Before you begin, ensure you have met the following requirements:
 ```bash
 git clone git@github.com:SteffanCal/groupprojectaws.git
 ```
+
 2. Set up amazon ec2 instance
 
 3. Set up amazon rds database
@@ -83,4 +85,3 @@ Start the server:
 ```bash
 npm start
 ```
-
