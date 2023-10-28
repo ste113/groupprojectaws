@@ -87,7 +87,7 @@ Update these variables with your own configuration.
 
 ```bash
 connect to database
-pg_restore -U postgres -W -F t -d quiz latestdb.pgsql
+pg_restore -U username -W -F t -d databasename latestdb.pgsql
 ```
 
 Start the server:
