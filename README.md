@@ -56,19 +56,19 @@ npm install
 
 1.Create a .env file in the root directory and set the following environment variables:
 
--username: username for database
+- username: username for database
 
--password: password for database
+- password: password for database
 
--database: database name
+- database: database name
 
--clientid: google project clientid
+- clientid: google project clientid
 
--clientsecret: google project clientsecret
+- clientsecret: google project clientsecret
 
--callbackurl: google project redirecturl
+- callbackurl: google project redirecturl
 
--databaseendpoint: endpoint for rds database hosted on amazon aws
+- databaseendpoint: endpoint for rds database hosted on amazon aws
 
 ```bash
 username=''
