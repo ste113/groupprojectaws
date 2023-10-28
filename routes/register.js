@@ -7,12 +7,12 @@ const knex = require("knex")({
   connection: {
         host: 'database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com',
           port: '5432',
-    user: 'postgres',
-    password: 'ocXthUO55TH5lMRfVcjr',
-	  ssl: { rejectUnauthorized: false }
+    user: process.env.username,
+          database: process.env.database,
+    password: process.env.password,
+        ssl:  { rejectUnauthorized: false }
   },
 });
-
 
 router.get("/register", (req, res) => {
   res.render("register", { layout: "main" });

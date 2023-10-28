@@ -6,27 +6,15 @@ var bcrypt = require("bcrypt");
 require("dotenv").config();
 var session = require("express-session");
 var postgresstore = require("connect-pg-simple")(session);
-
-const knex = require("knex")({
-  client: "postgresql",
-  connection: {
-	host: 'database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com',
-	  port: '5432',
-    user: 'postgres',
-	  database: 'postgres',
-    password: 'ocXthUO55TH5lMRfVcjr',
-	ssl:  { rejectUnauthorized: false }
-  },
-});
-
-
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const path = require("node:path");
-
 const sessionStore = new postgresstore({
-  conString: `postgresql://localhost/${process.env.DATABASE_NAME}?user=${process.env.DB_USERNAME}&password=${process.env.DB_PASSWORD}`,
+	conObject: {
+      connectionString: `postgresql://${process.env.databaseendpoint}/postgres?user=${process.env.username}&password=${process.env.password}`
+		,ssl : {rejectUnauthorized: false}
+    },
 });
 
-router.use(express.static(path.join(__dirname, "public")));
 router.use(
   session({
     secret: "keyboard cat",
@@ -35,7 +23,56 @@ router.use(
     store: sessionStore,
   }),
 );
+
+passport.use(new GoogleStrategy({
+	clientID: process.env.clientid,
+    clientSecret: process.env.clientsecret,
+    callbackURL: process.env.callbackurl,
+        passReqToCallback: true
+  },
+         function(request, accessToken, refreshToken, profile, done) {
+            return done(null, profile);
+    }
+  
+));
+passport.serializeUser(function (user, cb) {
+  process.nextTick(function () {
+	  return cb(null, user)
+  });
+});
+
+passport.deserializeUser(function (obj, cb) {
+  process.nextTick(function () {
+	  return cb(null,obj);
+  });
+});
+
+router.use(passport.initialize());
+router.use(passport.session());
+router.use(express.static(path.join(__dirname, "public")));
+const knex = require("knex")({
+  client: "postgresql",
+  connection: {
+	host: 'database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com',
+	  port: '5432',
+    user: 'postgres',
+	  database: process.env.database,
+    password: process.env.password,
+	  ssl : {rejectUnauthorized: false}
+  },
+});
 router.use(passport.authenticate("session"));
+
+
+
+
+router.get('/auth/google',
+  passport.authenticate('google', { scope: ['email', 'profile'] }));
+
+router.get('/auth/google/callback',
+  passport.authenticate('google',{ successRedirect: '/',
+        failureRedirect: '/login'}),
+)
 
 passport.use(
   new LocalStrategy(async function verify(username, password, cb) {
@@ -44,14 +81,13 @@ passport.use(
       .where("username", "=", username);
     let row = selected[0];
 
-    
-    try {
+ try{   
       if (await bcrypt.compare(password, row.password)) {
         return cb(null, row);
       } 
-    } catch (e) {
-      return cb(e);
-    }
+    } 
+	  catch(err){
+		  console.log(err)}
   }),
 );
 
@@ -68,16 +104,11 @@ passport.deserializeUser(function (user, cb) {
 });
 
 
-
-
-
-router.post("/logout", function (req, res, next) {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
-  });
+router.post('/logout', function(req, res, next) {
+	req.session.destroy(function(e){
+        req.logout();
+        res.redirect('/');
+    });
 });
 
 router.get("/login", (req, res) => {
@@ -88,30 +119,40 @@ router.get("/", async (req, res) => {
   let array = await knex("questionsets").select("*");
   let quizid = array[Math.floor(Math.random() * array.length)].setname;
   let appointmentrows = await knex("appointments").select("*");
-  if(req.user !== undefined){
-    let loggedinuser = await knex("users")
-    .select("*")
-    .where("username", "=", req.user.username);
+  if (req.user !== undefined) {
+   
+    if (req.user.name !== undefined) {
+      res.render("loggedin", {
+        layout: "main",
+        name: req.user.name.givenName,
+        quizid: quizid,
+      });
+    }
+	  else{
+let loggedinuser = await knex("users")
+      .select("*")
+      .where("username", "=", req.user.username);
     if (loggedinuser[0].role === "admin") {
-    res.render("adminpanel", {
-      layout: "main",
-      name: req.user.username,
-      quizid: quizid,
-      appointments: appointmentrows
-    });
-  } else {
-    res.render("loggedin", {
-      layout: "main",
-      name: req.user.username,
-      quizid: quizid,
-    });
-  } 
-  }
-  else {
-    res.render("loggedout", { layout: "main" });
-  }
-  
-}); 
+      res.render("adminpanel", {
+        layout: "main",
+        name: req.user.username,
+        quizid: quizid,
+        appointments: appointmentrows,
+      });
+    } else {
+      res.render("loggedin", {
+        layout: "main",
+        name: req.user.username,
+        quizid: quizid,
+      });
+    }
+
+	  }
+ }
+  else{
+res.render("loggedout", {layout: "main"})
+		}
+     }); 
 
 router.post("/", async (req, res) => {
   let array = await knex("questionsets").select("*");
@@ -122,29 +163,38 @@ router.post("/", async (req, res) => {
   });
   let appointmentrows = await knex("appointments").select("*");
 
+if (req.user !== undefined) {
+       if (req.user.name !== undefined) {
+      res.render("loggedin", {
+        layout: "main",
+        name: req.user.name.getName,
+        quizid: quizid,
+      });
+    }
+	else{
+		let loggedinuser = await knex("users")
+      .select("*")
+      .where("username", "=", req.user.username);
+if (loggedinuser[0].role === "admin") {
+      res.render("adminpanel", {
+        layout: "main",
+        name: req.user.username,
+        quizid: quizid,
+        appointments: appointmentrows,
+      });
+    } else {
+      res.render("loggedin", {
+        layout: "main",
+        name: req.user.username,
+        quizid: quizid,
+      });
+    }
 
-  if(req.user !== undefined){
-    let loggedinuser = await knex("users")
-    .select("*")
-    .where("username", "=", req.user.username);
-    if (loggedinuser[0].role === "admin") {
-    res.render("adminpanel", {
-      layout: "main",
-      name: req.user.username,
-      quizid: quizid,
-      appointments: appointmentrows
-    });
-  } else {
-    res.render("loggedin", {
-      layout: "main",
-      name: req.user.username,
-      quizid: quizid,
-    });
-  } 
-  }
-  else {
-    res.render("loggedout", { layout: "main" });
-  }
+	}
+ }
+  else{
+res.render("loggedout", {layout: "main"})
+                }
 });
 
 router.post(

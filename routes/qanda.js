@@ -6,13 +6,11 @@ const knex = require("knex")({
   connection: {
         host: 'database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com',
           port: '5432',
-    user: 'postgres',
-    password: 'ocXthUO55TH5lMRfVcjr',
-	  ssh: { rejectUnauthorized: false }
+    user: process.env.username,
+    password: process.env.password,
+          ssl: { rejectUnauthorized: false }
   },
 });
-
-
 
 router.get("/quizzes/:id", async (req, res) => {
     let results = await knex(`${req.params.id}`).select("*");
@@ -22,6 +20,7 @@ router.get("/quizzes/:id", async (req, res) => {
       results: results,
     });
   });
+
 
 
 router.post("/quizzes/:id/results", async (req, res) => {

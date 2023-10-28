@@ -4,28 +4,28 @@
     <form
       action="{{action}}"
       method="post"
-      class="place-self-center flex max-w-[750px] overflow-x-hidden"
+      class="lg:place-self-center container flex lg:h-[444px] lg:w-[750px] overflow-x-hidden"
     >
       {{#each results}}
         <div
-          class="min-w-full min-h-[400px] px-32 flex flex-col justify-center align-middle gap-y-20 bg-white rounded-lg p-5"
+          class="min-w-full min-h-[400px] items-center flex flex-col justify-center align-middle gap-y-20 bg-white rounded-lg  p-5"
           id="slide{{@index}}"
         >
-          <h2 class="text-3xl font-bold text-center"><p
+          <h2 class="text-3xl px-5 font-bold text-center"><p
             >{{this.question}}</p></h2>
-          <div class="grid min-w-full">
-            <div class="scale-125 space-x-2"><input
+          <div class="grid max-w-fit ">
+            <div class="lg:scale-125 space-x-2"><input
                 name="{{@index}}"
                 value={{this.choice_1}}
                 type="radio"
               /><label class="text-xl">{{this.choice_1}}</label></div>
-            <div class="space-x-2 scale-125"><input
+            <div class="space-x-2 lg:scale-125 "><input
                 name="{{@index}}"
                 value={{this.choice_2}}
                 type="radio"
               /><label class="text-xl">{{this.choice_2}}</label></div>
             {{#notequal this.choice_3 null}}
-              <div class="space-x-2 scale-125"><input
+              <div class="space-x-2 lg:scale-125 "><input
                   class=""
                   name="{{@index}}"
                   value={{this.choice_3}}
@@ -33,7 +33,7 @@
                 /><label class="text-xl">{{this.choice_3}}</label></div>
             {{/notequal}}
             {{#notequal this.choice_4 null}}
-              <div class="space-x-2 scale-125"><input
+              <div class="space-x-2 lg:scale-125 "><input
                   class=""
                   name="{{@index}}"
                   value={{this.choice_4}}
@@ -42,7 +42,7 @@
             {{/notequal}}
           </div>
           {{#notequal @index 4}}
-            <div class="flex justify-end">
+            <div class="flex self-end px-5">
               <a
                 href="#slide{{add @index 1}}"
                 className="btn btn-circle"

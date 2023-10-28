@@ -9,11 +9,16 @@ require("dotenv").config();
 module.exports = {
   development: {
     client: "postgresql",
-    connection: {
-      database: process.env.DATABASE_NAME,
-      user: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-    },
+	   connection: {
+        host: 'database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com',
+          port: '5432',
+    user: `${process.env.username}`,
+          database:`${process.env.database}`,
+    password: `${process.env.password}`,
+        ssl:  { rejectUnauthorized: false }
+  },
+
+         },
   },
 
   staging: {

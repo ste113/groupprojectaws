@@ -4,18 +4,19 @@
 
 <div class="grid w-screen text-black min-h-screen">
 
-  <form
+  <div
     class="place-self-center grid min-w-[30%] min-h-[40%] px-32 bg-white rounded-lg p-5"
     action="/login/password"
     method="post"
   >
+<form action="/login/password" method="post" class="min-w-full min-h-full grid">
     <h2 class="text-3xl font-bold text-center">Log in</h2>
     <label for="username" class="font-bold">Username</label>
     <input
       id="username"
       name="username"
       placeholder="username"
-      class="indent-1 border outline-none border-black rounded-md"
+      class="indent-1 min-h-[42px] border outline-none border-black rounded-md"
       type="text"
       autocomplete="username"
     />
@@ -25,11 +26,13 @@
       id="current-password"
       placeholder="password"
       name="password"
-      class="indent-1 outline-none border border-black rounded-md"
+      class="indent-1 outline-none min-h-[42px]  border border-black rounded-md"
       type="password"
       autocomplete="current-password"
     />
     <br />
     <button type="submit">Sign in</button>
-  </form>
+</form>
+	<a href="/auth/google"><button class="min-h-[50px] mt-5  min-w-full bg-black text-white">Sign in with Google</button></a>
+  </div>
 </div>
