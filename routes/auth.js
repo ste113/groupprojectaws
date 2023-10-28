@@ -52,17 +52,19 @@ passport.deserializeUser(function (obj, cb) {
 router.use(passport.initialize());
 router.use(passport.session());
 router.use(express.static(path.join(__dirname, "public")));
+
 const knex = require("knex")({
   client: "postgresql",
   connection: {
-    host: "database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com",
-    port: "5432",
-    user: "postgres",
+    host: process.env.host,
+    port: process.env.port,
+    user: process.env.username
     database: process.env.database,
     password: process.env.password,
     ssl: { rejectUnauthorized: false },
   },
 });
+
 router.use(passport.authenticate("session"));
 
 router.get(
