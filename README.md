@@ -26,7 +26,7 @@ Before you begin, ensure you have met the following requirements:
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/quiz-application.git
+git clone git@github.com:SteffanCal/groupprojectaws.git
 ```
 2. Set up amazon ec2 instance
 
