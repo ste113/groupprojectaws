@@ -70,6 +70,11 @@ npm install
 
 - databaseendpoint: endpoint for rds database hosted on amazon aws
 
+- host: host of database
+
+- port: port number of database
+
+
 ```bash
 username=''
 password=''
@@ -78,7 +83,8 @@ clientid=''
 clientsecret=''
 callbackurl=''
 databaseendpoint=''
-
+host=''
+port=''
 ```
 
 Update these variables with your own configuration.
