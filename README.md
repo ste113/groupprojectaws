@@ -89,6 +89,14 @@ Update these variables with your own configuration.
 connect to database: psql --host=databaseendpoint --port=portnumber --dbname=dbname --username=username
 pg_restore -U username -W -F t -d databasename db.pgsql
 ```
+3. Create a self-signed certificate and place its cert and key inside the options variable of index.js
+
+```bash
+const options = {
+  cert: fs.readFileSync("location of cert"),
+  key: fs.readFileSync("location of key"),
+};
+```
 
 Start the server:
 
