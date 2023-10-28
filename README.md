@@ -14,8 +14,10 @@ Link to app: https://ec2-3-106-216-93.ap-southeast-2.compute.amazonaws.com/
 ## Features
 
 - User authentication
+- Google authentication
 - Take quizzes and see your scores
 - View quiz results and correct answers
+- Hosted on an AWS EC2 instance
 
 ## Prerequisites
 
