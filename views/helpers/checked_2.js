@@ -1,20 +1,20 @@
 module.exports = function (handlebars) {
   return function (arg1, arg2, args3) {
-    try{
+    try {
       if (
         arg1[args3].correct_answer === arg1[args3].choice_2 &&
-        arg2[args3].toString().replaceAll("_", " ") === arg1[args3].correct_answer
+        arg2[args3].toString().replaceAll("_", " ") ===
+          arg1[args3].correct_answer
       ) {
         return "checked";
       } else if (
         arg1[args3].correct_answer !== arg1[args3].choice_2 &&
         arg2[args3].toString().replaceAll("_", " ") === arg1[args3].choice_2
-      ){
-        return "checked"
+      ) {
+        return "checked";
       }
-    
-    }catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-    
-}};
+  };
+};

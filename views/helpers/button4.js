@@ -1,9 +1,10 @@
 module.exports = function (handlebars) {
   return function (arg1, arg2, args3) {
-    try{
+    try {
       if (
         arg1[args3].correct_answer === arg1[args3].choice_4 &&
-        arg2[args3].toString().replaceAll("_", " ") === arg1[args3].correct_answer
+        arg2[args3].toString().replaceAll("_", " ") ===
+          arg1[args3].correct_answer
       ) {
         return "bg-gray-400";
       } else if (
@@ -13,13 +14,13 @@ module.exports = function (handlebars) {
         return "bg-red-400";
       } else if (
         arg1[args3].correct_answer === arg1[args3].choice_4 &&
-        arg2[args3].toString().replaceAll("_", " ") !== arg1[args3].correct_answer
+        arg2[args3].toString().replaceAll("_", " ") !==
+          arg1[args3].correct_answer
       ) {
         return "bg-green-400";
       }
+    } catch (err) {
+      console.log(err);
     }
-   catch(err){
-    console.log(err)
-   }
   };
 };

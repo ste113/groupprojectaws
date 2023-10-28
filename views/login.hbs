@@ -1,4 +1,6 @@
-<div class="flex space-x-2 justify-end pr-2 text-xl"><a href="/register">Register</a>
+<div class="flex space-x-2 justify-end pr-2 text-xl"><a
+    href="/register"
+  >Register</a>
   <div>|</div>
   <a href="/">Home</a></div>
 
@@ -9,30 +11,36 @@
     action="/login/password"
     method="post"
   >
-<form action="/login/password" method="post" class="min-w-full min-h-full grid">
-    <h2 class="text-3xl font-bold text-center">Log in</h2>
-    <label for="username" class="font-bold">Username</label>
-    <input
-      id="username"
-      name="username"
-      placeholder="username"
-      class="indent-1 min-h-[42px] border outline-none border-black rounded-md"
-      type="text"
-      autocomplete="username"
-    />
-    <br />
-    <label for="current-password" class="font-bold">Password</label>
-    <input
-      id="current-password"
-      placeholder="password"
-      name="password"
-      class="indent-1 outline-none min-h-[42px]  border border-black rounded-md"
-      type="password"
-      autocomplete="current-password"
-    />
-    <br />
-    <button type="submit">Sign in</button>
-</form>
-	<a href="/auth/google"><button class="min-h-[50px] mt-5  min-w-full bg-black text-white">Sign in with Google</button></a>
+    <form
+      action="/login/password"
+      method="post"
+      class="min-w-full min-h-full grid"
+    >
+      <h2 class="text-3xl font-bold text-center">Log in</h2>
+      <label for="username" class="font-bold">Username</label>
+      <input
+        id="username"
+        name="username"
+        placeholder="username"
+        class="indent-1 min-h-[42px] border outline-none border-black rounded-md"
+        type="text"
+        autocomplete="username"
+      />
+      <br />
+      <label for="current-password" class="font-bold">Password</label>
+      <input
+        id="current-password"
+        placeholder="password"
+        name="password"
+        class="indent-1 outline-none min-h-[42px] border border-black rounded-md"
+        type="password"
+        autocomplete="current-password"
+      />
+      <br />
+      <button type="submit">Sign in</button>
+    </form>
+    <a href="/auth/google"><button
+        class="min-h-[50px] mt-5 min-w-full bg-black text-white"
+      >Sign in with Google</button></a>
   </div>
 </div>

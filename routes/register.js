@@ -5,12 +5,12 @@ var bcrypt = require("bcrypt");
 const knex = require("knex")({
   client: "postgresql",
   connection: {
-        host: 'database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com',
-          port: '5432',
+    host: "database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com",
+    port: "5432",
     user: process.env.username,
-          database: process.env.database,
+    database: process.env.database,
     password: process.env.password,
-        ssl:  { rejectUnauthorized: false }
+    ssl: { rejectUnauthorized: false },
   },
 });
 
