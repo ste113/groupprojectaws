@@ -1,4 +1,4 @@
-# Xccelerate Group 2 Project (Quiz Application)
+# Xccelerate Group 2 Project (AWS version)
 
 This is a simple quiz application built with Express.js and PostgreSQL. It allows users to take quizzes and keeps track of their scores.
 
