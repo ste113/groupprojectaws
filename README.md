@@ -2,6 +2,8 @@
 
 This is a simple quiz application built with Express.js and PostgreSQL. It allows users to take quizzes and keeps track of their scores.
 
+Link to app: https://ec2-3-106-216-93.ap-southeast-2.compute.amazonaws.com/
+
 ## Table of Contents
 
 - [Features](#features)
