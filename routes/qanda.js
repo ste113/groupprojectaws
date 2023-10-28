@@ -4,8 +4,8 @@ var router = express.Router();
 const knex = require("knex")({
   client: "postgresql",
   connection: {
-    host: "database-1.cwv7hjmhrcqi.ap-southeast-2.rds.amazonaws.com",
-    port: "5432",
+    host: process.env.host,
+    port: process.env.port,
     user: process.env.username,
     password: process.env.password,
     ssl: { rejectUnauthorized: false },
