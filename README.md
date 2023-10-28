@@ -86,8 +86,8 @@ Update these variables with your own configuration.
 2. Create the database tables:
 
 ```bash
-connect to database
-pg_restore -U username -W -F t -d databasename latestdb.pgsql
+connect to database: psql --host=databaseendpoint --port=portnumber --dbname=dbname --username=username
+pg_restore -U username -W -F t -d databasename db.pgsql
 ```
 
 Start the server:
