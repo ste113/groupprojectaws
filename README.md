@@ -87,7 +87,7 @@ Update these variables with your own configuration.
 
 ```bash
 connect to database: psql --host=databaseendpoint --port=portnumber --dbname=dbname --username=username
-pg_restore -U username -W -F t -d databasename db.pgsql
+pg_restore -U username -W -F t -d databasename db.sql
 ```
 3. Create a self-signed certificate and place its cert and key inside the options variable of index.js
 
