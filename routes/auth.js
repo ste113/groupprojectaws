@@ -8,6 +8,7 @@ var session = require("express-session");
 var postgresstore = require("connect-pg-simple")(session);
 const GoogleStrategy = require("passport-google-oauth2").Strategy;
 const path = require("node:path");
+
 const sessionStore = new postgresstore({
   conObject: {
     connectionString: `postgresql://${process.env.databaseendpoint}/postgres?user=${process.env.username}&password=${process.env.password}`,
